@@ -1,0 +1,184 @@
+exam notice 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Details</title>
+    <style>
+        /* Global Styles */
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Table Container */
+        .table-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 10px;
+            border: 2px solid red;
+            border-radius: 12px;
+            background-color: #1a1a1a;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column; /* Allow column layout */
+            position: relative; /* For positioning countdown */
+        }
+
+        /* Table Header */
+        .table-header {
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Exam Table */
+        .exam-table {
+            width: 100%;
+            border-collapse: collapse;
+            flex-grow: 1; /* Allow table to grow */
+        }
+
+        .exam-table td {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            border-bottom: 1px solid #444;
+            text-align: left;
+        }
+
+        .subject {
+            font-weight: bold;
+            width: 30%;
+        }
+
+        /* Exam Time Section */
+        .exam-time {
+            text-align: center;
+            background-color: #2d2d2d;
+            color: yellow;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        .exam-time span {
+            color: orange;
+            font-weight: bold;
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            color: yellow; /* Changed countdown text color to yellow */
+            background-color: black; /* Background color for countdown */
+            padding: 10px;
+            font-size: 20px;
+            text-align: center; /* Center the countdown text */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .table-header {
+                font-size: 22px;
+                padding: 12px;
+            }
+
+            .exam-table td {
+                font-size: 14px;
+            }
+
+            .exam-time {
+                font-size: 16px;
+                padding: 8px;
+            }
+
+            .countdown {
+                font-size: 18px; /* Adjust font size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="table-container">
+        <div class="table-header">Exam Details..</div>
+        <table class="exam-table">
+            <tr>
+                <td class="subject ict">1/ICT:</td>
+                <td class="line">chapter "4" "html"</td>
+            </tr>
+            <tr>
+                <td class="subject phy">2/PHY:</td>
+                <td class="line">chapter "3" "চল তড়িৎ"</td>
+            </tr>
+            <tr>
+                <td class="subject bio">3/BIO:</td>
+                <td class="line">chap "4" "রক্ত ও সংবহন"</td>
+            </tr>
+        </table>
+        <div class="exam-time">
+            Exam time: <span>4:00 PM</span> at <span>23 October 2024</span>.
+        </div>
+        <div class="countdown" id="countdown"></div> <!-- Countdown Timer -->
+    </div>
+
+    <script>
+        // Function to generate a random bright color
+        function getBrightColor() {
+            const r = Math.floor(Math.random() * 128 + 128); // Ensure value is between 128-255
+            const g = Math.floor(Math.random() * 128 + 128);
+            const b = Math.floor(Math.random() * 128 + 128);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        // Select all elements with the class "line"
+        const lines = document.querySelectorAll('.line');
+
+        // Assign a bright random color to each line
+        lines.forEach(line => {
+            line.style.color = getBrightColor();
+        });
+
+        // Countdown Timer
+        const countdownElement = document.getElementById('countdown');
+        const examDate = new Date('2024-10-23T16:00:00'); // Updated exam date and time
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeLeft = examDate - now;
+
+            // Calculate days, hours, minutes, and seconds
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // Display the result
+            countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            // If the countdown is finished, write some text
+            if (timeLeft < 0) {
+                clearInterval(interval);
+                countdownElement.innerHTML = "Exam has started!"; // Updated message
+            }
+        }
+
+        // Update the countdown every second
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call to set the countdown immediately
+    </script>
+
+</body>
+</html>
